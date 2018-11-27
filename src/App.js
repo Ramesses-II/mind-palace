@@ -94,7 +94,7 @@ class App extends Component {
             : null}
         </Header>
         <Content className='App-content'>
-          <QueueAnim
+          <QueueAnim style={{ width:'80%' }}
             animConfig={[
               { opacity: [1, 0], scaleY:[1, 0] },
               { opacity: [1, 0], scaleY:[1, 0] }

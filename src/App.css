@@ -5,6 +5,7 @@
 
 .App-header {
   background-color: #282c34;
+  color: #61dafb;
   min-height: 15vh;
   display: flex;
   flex-direction: column;
@@ -12,11 +13,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(30px + 2vmin);
-  color: white;
 }
 
 .App-content {
   background-color: #282c34;
+  width: 100%;
   min-height: 70vh;
   display: flex;
   flex-direction: column;
@@ -28,6 +29,7 @@
 }
 .App-footer {
   background-color: #282c34;
+  color: #61dafb;
   min-height: 15vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +37,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -43,7 +44,7 @@
 }
 
 .table-wrapper {
-  width: 1000px;
+  width: 100%;
   height: calc(100% - 82px);
   background: #fff;
   display: inline-block;
