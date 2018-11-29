@@ -1,8 +1,10 @@
+// PlaneList Presentational Components
 import React, { Component } from 'react';
 import { Layout, Table, Form, Input, Select, Button, Divider, Badge } from 'antd';
 import Texty      from 'rc-texty';
 import QueueAnim  from 'rc-queue-anim';
-import './App.css';
+import { fetchData } from '../actions';
+import './styles/App.css';
 
 const { Header, Content, Footer } = Layout;
 const { Option } = Select;
@@ -36,23 +38,6 @@ const columns = [
     ),
   }
 ];
-const dataSource = [
-  {
-    key:    '1',
-    name:   '221B Baker Street',
-    status: '1',
-  },
-  {
-    key:    '2',
-    name:   'Headquarters',
-    status: '1',
-  },
-  {
-    key:    '3',
-    name:   'Pera Palace',
-    status: '0',
-  },
-];
 
 class SearchForm extends Component {
   render() {
@@ -60,7 +45,7 @@ class SearchForm extends Component {
     return (
       <Form layout="inline">
         <FormItem label="NAME"    style={{ float:'left'}}>
-          {getFieldDecorator('name')(<Input placeholder="image"/>)}
+          {getFieldDecorator('name')(<Input placeholder="plane"/>)}
         </FormItem>
         <FormItem label="STATUS"  style={{ float:'left'}}>
           {getFieldDecorator('status')(
@@ -78,19 +63,26 @@ class SearchForm extends Component {
 }
 const WrappedSearchForm = Form.create()(SearchForm);
 
-class Images extends Component {
+class Planes extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show: true,
     }
   }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchData('http://127.0.0.1:5000/planes'));
+  }
+
   render() {
+    const { datagram } = this.props;
     return (
       <Layout className='App'>
         <Header className='App-header'>
           {this.state.show ?
-            <div key='title'><Texty type='alpha' mode='smooth'>IMAGES</Texty></div>
+            <div key='title'><Texty type='alpha' mode='smooth'>PLANES</Texty></div>
             : null}
         </Header>
         <Content className='App-content'>
@@ -101,15 +93,15 @@ class Images extends Component {
             ]}
             ease={['easeOutQuart', 'easeInOutQuart']}>
             {this.state.show ? [
-              <div key='a' className={'table-wrapper'}>
-                <div className={'action-bar'}>
-                  <WrappedSearchForm/>
-                  <Button type="primary" style={{ float:'right', marginRight:'10px' }}>ADD</Button>
-                </div>
-                <Table columns={columns} dataSource={dataSource}/>
-              </div>,
-              <div key='b'>
-              </div>] : null }
+            <div key='a' className={'table-wrapper'}>
+              <div className={'action-bar'}>
+                <WrappedSearchForm/>
+                <Button type="primary" style={{ float:'right', marginRight:'10px' }}>ADD</Button>
+              </div>
+              <Table columns={columns} dataSource={datagram.data}/>
+            </div>,
+            <div key='b'>
+            </div>] : null }
           </QueueAnim>
         </Content>
         <Footer  className='App-footer'>created by Ant-Man</Footer>
@@ -118,4 +110,4 @@ class Images extends Component {
   }
 }
 
-export default Images;
+export default Planes;

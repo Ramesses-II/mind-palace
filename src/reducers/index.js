@@ -1,13 +1,23 @@
 import { combineReducers } from 'redux';
 
-function data() {
-  
+function datagram(state = { isFetching: false, data: [] }, action) {
+  switch (action.type) {
+    case 'REQUEST_DATA':
+      return {
+        ...state,
+        isFetching: true
+      }
+    case 'RECEIVE_DATA':
+      return {
+        ...state,
+        isFetching: false,
+        data: action.data
+      }
+    default:
+      return state;
+  }
 }
 
-function dataBySource() {
-  
-}
-
-const rootReducer = combineReducers({ data, dataBySource });
+const rootReducer = combineReducers({ datagram });
 
 export default rootReducer;
